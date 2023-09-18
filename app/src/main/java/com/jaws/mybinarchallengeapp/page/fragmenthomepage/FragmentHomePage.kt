@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -38,14 +39,17 @@ class FragmentHomePage : Fragment() {
     private fun setRecyclerViewMenu() {
         // Add Category List
         val menuList = mutableListOf<Menu>(
-            Menu(R.drawable.img_grilled_chicken, "Ayam Bakar", "Rp. 50000"),
+            Menu(R.drawable.img_grilled_chicken, "Ayam Bakar", "Rp. 50000",),
             Menu(R.drawable.img_fried_chicken, "Ayam Goreng", "Rp. 40000"),
             Menu(R.drawable.img_smashed_chicken, "Ayam Geprek", "Rp. 35000"),
             Menu(R.drawable.img_chicken_satay, "Sate Ayam", "Rp. 30000"),
         )
 
         // Create Adapter
-        val recyclerViewAdapterMenu = RecyclerViewAdapterMenu(menuList)
+        val recyclerViewAdapterMenu = RecyclerViewAdapterMenu(menuList){
+            val action = FragmentHomePageDirections.actionFragmentHomePageToFragmentMenuDetail(it)
+            findNavController().navigate(action)
+        }
 
         // Create Layout Manager
         val layoutManagerMenu = FlexboxLayoutManager(requireContext())
