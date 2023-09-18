@@ -10,7 +10,8 @@ import com.jaws.mybinarchallengeapp.R
 import com.jaws.mybinarchallengeapp.model.Menu
 
 class RecyclerViewAdapterMenu(
-    val menuList: List<Menu>
+    val menuList: MutableList<Menu>,
+    val listener: (Menu) -> Unit
 ) : RecyclerView.Adapter<RecyclerViewAdapterMenu.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,6 +29,9 @@ class RecyclerViewAdapterMenu(
         holder.tvMenuName.setText(menuList[position].menuName)
         holder.tvMenuPrice.setText(menuList[position].menuPrice)
         holder.ivMenuImg.setImageResource(menuList[position].menuImg)
+        holder.itemView.setOnClickListener{
+            listener(menuList[position])
+        }
     }
 
     override fun getItemCount(): Int {
